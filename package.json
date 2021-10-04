@@ -1,0 +1,15 @@
+{
+  "name": "reglomobile-scrapper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MathieuRanc/reglomobile-scrapper.git",
+  "author": "Mathieu Ranc <dev@mathieuranc.fr>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "puppeteer": "^10.4.0"
+  }
+}
