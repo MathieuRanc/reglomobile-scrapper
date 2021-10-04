@@ -17,6 +17,7 @@ function delay(time) {
 // })();
 
 toto = async () => {
+	console.log('top départ');
 	// set some options, set headless to false so we can see the browser in action
 	let launchOptions = { headless: true };
 	// let launchOptions = { headless: true, args: ['--fast-start', '--disable-extensions', '--no-sandbox'] };
@@ -88,7 +89,7 @@ toto = async () => {
 	await page.waitForSelector('#cphMain_bpiReleveConsommation_cblReleveConsommation_chkDataReleveConsommation');
 	await page.click('#cphMain_bpiReleveConsommation_cblReleveConsommation_chkDataReleveConsommation');
 
-  // select previous month
+	// select previous month
 	await page.waitForSelector(
 		'#cphMain_bpiReleveConsommation_smrPeriodeReleveConso_ddlPeriodeReleveConso option:nth-child(1)'
 	);
