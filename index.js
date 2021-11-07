@@ -7,19 +7,11 @@ function delay(time) {
 	});
 }
 
-// (async () => {
-//   const browser = await puppeteer.launch();
-//   const page = await browser.newPage();
-//   await page.goto('https://www.reglomobile.fr/');
-//   await page.screenshot({ path: 'example.png' });
-
-//   await browser.close();
-// })();
-
 toto = async () => {
-	console.log('top départ');
+	console.log('Scrapping en cours..');
 	// set some options, set headless to false so we can see the browser in action
-	let launchOptions = { headless: true };
+	// use headless to true to hide the browser
+	let launchOptions = { headless: false };
 	// let launchOptions = { headless: true, args: ['--fast-start', '--disable-extensions', '--no-sandbox'] };
 
 	// launch the browser with above options
@@ -28,9 +20,7 @@ toto = async () => {
 
 	// set viewport and user agent (just in case for nice viewing)
 	await page.setViewport({ width: 1366, height: 768 });
-	await page.setUserAgent(
-		'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
-	);
+	await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36');
 
 	// go to login page
 	await page.goto('https://www.reglomobile.fr/');
@@ -43,10 +33,7 @@ toto = async () => {
 	await page.hover('.utilisateurMainHeader span');
 
 	// fill login
-	await page.evaluate(
-		(val) => (document.querySelector('#ascHeader_blpConnexionNav_sidIdClient').value = val),
-		process.env.USERNAME
-	);
+	await page.evaluate((val) => (document.querySelector('#ascHeader_blpConnexionNav_sidIdClient').value = val), process.env.USERNAME);
 
 	// wait for login update
 	await delay(1000);
@@ -61,10 +48,7 @@ toto = async () => {
 	await page.click('#onetrust-reject-all-handler');
 
 	// set password
-	await page.evaluate(
-		(val) => (document.querySelector('#cphMain_blcConnexion_stxMdpConnexion').value = val),
-		process.env.PASSWORD
-	);
+	await page.evaluate((val) => (document.querySelector('#cphMain_blcConnexion_stxMdpConnexion').value = val), process.env.PASSWORD);
 
 	// wait for update
 	await delay(1000);
@@ -90,13 +74,9 @@ toto = async () => {
 	await page.click('#cphMain_bpiReleveConsommation_cblReleveConsommation_chkDataReleveConsommation');
 
 	// select previous month
-	await page.waitForSelector(
-		'#cphMain_bpiReleveConsommation_smrPeriodeReleveConso_ddlPeriodeReleveConso option:nth-child(1)'
-	);
+	await page.waitForSelector('#cphMain_bpiReleveConsommation_smrPeriodeReleveConso_ddlPeriodeReleveConso option:nth-child(1)');
 	await page.evaluate(() => {
-		document.querySelector(
-			'#cphMain_bpiReleveConsommation_smrPeriodeReleveConso_ddlPeriodeReleveConso option:nth-child(1)'
-		).selected = true;
+		document.querySelector('#cphMain_bpiReleveConsommation_smrPeriodeReleveConso_ddlPeriodeReleveConso option:nth-child(1)').selected = true;
 	});
 
 	// wait for update
@@ -113,9 +93,6 @@ toto = async () => {
 
 	// select consomation informations
 	await frame.waitForSelector('#pageContainer1 div.textLayer div:nth-child(90)');
-	// let value = await frame.$eval('#pageContainer1 div.textLayer div:nth-child(90)', (element) => {
-	// 	return element.innerHTML;
-	// });
 
 	// const linkHandlers = await frame.$x("//div[contains(text(), 'ko')]");
 	const linkHandlers = await frame.$x("//div[contains(text(), 'ko')] | //div[contains(text(), 'Go')]");
@@ -128,21 +105,10 @@ toto = async () => {
 		if (text.length < 10) value.push(text);
 	});
 
-	console.log(value.length);
-
-	// const els = await frame.evaluate(() => [...document.querySelectorAll('#pageContainer1 div.textLayer')]);
-
-	// console.log(els.length);
-
-	// for (let i = 0; i < els.length; i++) {
-	// 	console.log(els[i]);
-	// 	// const style = await els[i].$eval('div', (el) => el.getAttribute('style'));
-	// 	// console.log(style);
-	// }
-
 	// close the browser
 	await browser.close();
 
+	console.log('Donnée récupérée');
 	return value;
 };
 
