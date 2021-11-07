@@ -1,10 +1,10 @@
 # Scrapping de la data réglomobile 📱
 
-# Sommaire
+## Sommaire
 
-- [Présentation](#presentation)
+- [Présentation](#présentation)
 - [Installation](#installation)
-- [Améliorations possibles](#ameliorations-possibles)
+- [Améliorations possibles](#améliorations-possibles)
 - [Historique](#historique)
 
 # Présentation
